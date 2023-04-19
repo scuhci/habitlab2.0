@@ -1,0 +1,23 @@
+{
+	"name": "HabitLab 2.0",
+	"description": "This extension build better online habits",
+	"version": "1.0.0",
+	"manifest_version": 3,
+	"icons": {
+		"16": "logo.png",
+		"48": "logo.png",
+		"128": "logo.png"
+	},
+	"action": {
+		"default_title": "HabitLab 2.0",
+		"default_popup": "popup.html"
+	},
+	"options_page": "options.html",
+	"content_scripts": [
+		{
+			"matches": ["https://www.youtube.com/"],
+			"js": ["youtubeScripts.js"]
+		}
+	],
+	"permissions": ["storage"]
+}
