@@ -11,7 +11,7 @@ function enableFeed() {
     primaryDiv.removeChild(appContainer);
 }
 
-export const ContentScript: FunctionComponent = () => {
+export const HideFeed: FunctionComponent = () => {
     return (
         <div className="flex justify-center">
             <div className="text-center">
