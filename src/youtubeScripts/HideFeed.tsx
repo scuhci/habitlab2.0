@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react"
 //function to show the div with id contents
-function disableFeed() {
+function enableFeed() {
     const contentsDiv = document.getElementById("contents");
     const primaryDiv = document.getElementById("primary");
     const appContainer = document.getElementById("appContainer");
@@ -17,7 +17,7 @@ export const ContentScript: FunctionComponent = () => {
             <div className="text-center">
                 <p className="normal-case dark:text-white text-3xl p-5 ...">Home feed has been Hidden</p>
                 <button className="h-20 px-10 m-10 text-xl bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-white py-2 px-4 border border-white hover:border-transparent rounded "
-                    onClick={disableFeed}>
+                    onClick={enableFeed}>
                     Show Feed
                 </button>
             </div>

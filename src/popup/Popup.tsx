@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useChromeStorage } from '../utils/useChromeStorage';
 
 function Popup() {
-    const [toggleState, setToggleState] = useState(false);
-
-    useEffect(() => {
-        chrome.storage.local.get('hide-feed', ({ toggleState }) => {
-            if (toggleState !== undefined) {
-                setToggleState(toggleState);
-            }
-        });
-    }, []);
-
+    const [toggleState, setToggleState] = useChromeStorage('myKey', 'myDefaultValue');
     const handleToggle = () => {
         setToggleState(!toggleState);
-        chrome.storage.local.set({ 'hide-feed': !toggleState });
     };
 
     return (
