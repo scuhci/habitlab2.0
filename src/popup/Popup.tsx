@@ -1,6 +1,6 @@
 import React from 'react'
 import { useChromeStorage } from '../utils/useChromeStorage';
-import Toggle from '../components/Toggle';
+import { ChakraProvider, FormControl, FormLabel, Switch, Spacer, Text } from '@chakra-ui/react';
 
 function Popup() {
     const [toggleState, setToggleState] = useChromeStorage('youtube-interventions', false);
@@ -9,13 +9,20 @@ function Popup() {
     };
 
     return (
-        <div className='w-96'>
-            <div className='p-4'>
-                <h1 className='text-base mb-4 font-medium'>HabitLab 2.0</h1>
-
-                <Toggle label="Youtube Interventions" handleToggle={handleToggle} toggleState={toggleState} />
+        <ChakraProvider>
+            <div className='w-96'>
+                <div className='p-4'>
+                    <Text as='b' fontSize='xl'>Habitlab 2.0</Text>
+                    <FormControl display='flex' alignItems='center'>
+                        <FormLabel htmlFor='email-alerts' mb='0'>
+                            Youtube Interventions
+                        </FormLabel>
+                        <Spacer />
+                        <Switch onChange={handleToggle} defaultChecked={toggleState} id='youtube-interventions' />
+                    </FormControl>
+                </div>
             </div>
-        </div>
+        </ChakraProvider>
     )
 }
 
