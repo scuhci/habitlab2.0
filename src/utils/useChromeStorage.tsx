@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-export function useChromeStorage(key: string, defaultValue: any) {
-    const [value, setValue] = useState(defaultValue);
+export function useChromeStorage(key: string, initialValue: any) {
+    const [value, setValue] = useState(initialValue);
 
     useEffect(() => {
         chrome.storage.local.get(key, (data) => {
