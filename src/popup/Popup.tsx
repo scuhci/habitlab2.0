@@ -18,7 +18,7 @@ function Popup() {
                             Youtube Interventions
                         </FormLabel>
                         <Spacer />
-                        <Switch onChange={handleToggle} defaultChecked={toggleState} id='youtube-interventions' />
+                        <Switch onChange={handleToggle} defaultChecked={false} id='youtube-interventions' />
                     </FormControl>
                 </div>
             </div>
