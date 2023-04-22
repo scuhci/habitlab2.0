@@ -3,14 +3,17 @@ import ReactDOM from "react-dom";
 import "../assets/css/tailwind.css";
 import { hideFeed } from "./HideFeed";
 import { getFromStorage } from "../utils/useChromeStorage";
+import { hideComments } from "./HideComments";
 
 async function init() {
     const interventionsEnabled = await getFromStorage('youtube-interventions');
-    console.log(interventionsEnabled);
     if (!interventionsEnabled) {
         return;
     }
+    console.log("interventions enabled");
     hideFeed();
+    console.log("feed hidden");
+    hideComments();
 
 }
 

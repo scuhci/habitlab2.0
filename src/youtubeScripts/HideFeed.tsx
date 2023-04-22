@@ -8,7 +8,7 @@ function enableFeed() {
     const primaryDiv = document.getElementById("primary");
     const appContainer = document.getElementById("appContainer");
     if (!contentsDiv) {
-        throw new Error("Cannot find contentsDiv");
+        return
     }
     if (contentsDiv) {
         contentsDiv.style.display = "block";
@@ -33,7 +33,7 @@ export function hideFeed() {
     const primaryDiv = document.getElementById("primary");
 
     if (!contentsDiv) {
-        throw new Error("Cannot find contentsDiv");
+        return;
     }
 
     // Replace the contents of the div with the new content
