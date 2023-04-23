@@ -1,12 +1,13 @@
 import { Box, Button, ChakraProvider, Heading, Text } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react"
 import ReactDOM from "react-dom";
+import { once_available } from "../utils/frontend-utils";
 
 //function to show the div with id contents
 function enableFeed() {
     const contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
     const primaryDiv = document.getElementById("primary");
-    const appContainer = document.getElementById("appContainer");
+    const appContainer = document.getElementById("habitlab-hide-feed");
     if (!contentsDiv) {
         return
     }
@@ -19,7 +20,6 @@ function enableFeed() {
 export function hideFeed() {
     const appContainer = document.createElement("div");
     appContainer.id = "habitlab-hide-feed";
-    document.body.appendChild(appContainer);
 
     if (!appContainer) {
         throw new Error("Cannot find appContainer");
@@ -28,19 +28,27 @@ export function hideFeed() {
 
     ReactDOM.render(<HideFeed />, appContainer);
 
-    // Find the div with id "contents"
-    const contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
-    const primaryDiv = document.getElementById("primary");
+    var contentsDiv;
 
-    if (!contentsDiv) {
-        return;
+    once_available('ytd-browse[role="main"][page-subtype="home"] #contents', () => {
+        contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
+        if (contentsDiv) {
+            console.log('contentsDiv found');
+            contentsDiv.style.display = 'none';
+        }
+        else {
+            console.log('contentsDiv not found');
+        }
     }
+    );
 
-    // Replace the contents of the div with the new content
-    if (contentsDiv) {
-        contentsDiv.style.display = "none";
+    once_available('#primary', () => {
+        const primaryDiv = document.getElementById('primary');
+        primaryDiv.append(appContainer);
     }
-    primaryDiv.append(appContainer);
+    );
+
+
 }
 
 const HideFeed: FunctionComponent = () => {

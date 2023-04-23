@@ -1,6 +1,7 @@
 import { Box, Button, ChakraProvider, Heading, Text } from "@chakra-ui/react";
 import React, { FunctionComponent } from "react"
 import ReactDOM from "react-dom";
+import { once_available } from "../utils/frontend-utils";
 
 function enableComments() {
     const commentsDiv = document.getElementById('comments');
@@ -29,7 +30,7 @@ export function hideComments() {
 
     var primaryDiv, commentsDiv;
 
-    setTimeout(() => {
+    once_available('#comments', () => {
         commentsDiv = document.getElementById('comments');
         if (commentsDiv) {
             console.log('commentsDiv found');
@@ -38,18 +39,12 @@ export function hideComments() {
         else {
             console.log('commentsDiv not found');
         }
-    }, 2000);
-    setTimeout(() => {
+    });
+    once_available('#primary-inner', () => {
         primaryDiv = document.getElementById('primary-inner');
-        if (primaryDiv) {
-            console.log('primaryDiv found');
-            primaryDiv.append(appContainer);
-        } else {
-            console.log('got nowehre to append comments cheat button');
-        }
-    }, 2000);
-
-
+        primaryDiv.append(appContainer);
+    }
+    );
 }
 
 const HideComments: FunctionComponent = () => {
@@ -65,7 +60,7 @@ const HideComments: FunctionComponent = () => {
                     404
                 </Heading>
                 <Text fontSize="18px" mt={3} mb={2} color={'white'}>
-                    Page Not Found
+                    Productivity not found
                 </Text>
                 <Button
                     colorScheme="teal"
