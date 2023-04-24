@@ -18,6 +18,18 @@ function enableFeed() {
 }
 
 export function hideFeed() {
+    once_available('ytd-browse[role="main"][page-subtype="home"] #contents', () => {
+        contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
+        if (contentsDiv) {
+            console.log('contentsDiv found');
+            contentsDiv.style.display = 'none';
+        }
+        else {
+            console.log('contentsDiv not found');
+            return;
+        }
+    }
+    );
     const appContainer = document.createElement("div");
     appContainer.id = "habitlab-hide-feed";
 
@@ -29,19 +41,6 @@ export function hideFeed() {
     ReactDOM.render(<HideFeed />, appContainer);
 
     var contentsDiv;
-
-    once_available('ytd-browse[role="main"][page-subtype="home"] #contents', () => {
-        contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
-        if (contentsDiv) {
-            console.log('contentsDiv found');
-            contentsDiv.style.display = 'none';
-        }
-        else {
-            console.log('contentsDiv not found');
-        }
-    }
-    );
-
     once_available('#primary', () => {
         const primaryDiv = document.getElementById('primary');
         primaryDiv.append(appContainer);

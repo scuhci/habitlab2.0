@@ -10,7 +10,7 @@ async function init() {
         return;
     }
     console.log("interventions enabled");
-    hideFeed();
+    if (!window.location.href.includes("watch")) hideFeed();
     console.log("feed hidden");
     hideComments();
     console.log("comments hidden");
