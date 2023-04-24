@@ -1,3 +1,5 @@
+// content_script.js
+
 import "../assets/css/tailwind.css";
 import { hideFeed } from "./HideFeed";
 import { getFromStorage } from "../utils/useChromeStorage";
@@ -10,12 +12,13 @@ async function init() {
         return;
     }
     console.log("interventions enabled");
-    if (!window.location.href.includes("watch")) hideFeed();
-    console.log("feed hidden");
+    if (!window.location.href.includes("watch")) {
+        hideFeed();
+        console.log("feed hidden");
+    }
     hideComments();
     console.log("comments hidden");
     videoOverlay();
-
 }
 
 init();
