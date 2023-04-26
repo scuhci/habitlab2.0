@@ -11,17 +11,26 @@ interface VideoOverlayProps {
 const VideoOverlay: FunctionComponent<VideoOverlayProps> = ({ length }) => {
     return (
         <ChakraProvider>
-            <Box textAlign="center" py={10} px={6} onClick={playVideo} cursor={"pointer"}>
+            <Box
+                position="fixed"
+                top={0}
+                left={0}
+                right={0}
+                bottom={0}
+                zIndex="99999"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                onClick={playVideo}
+                cursor="pointer"
+                bg="rgba(0, 0, 0, 0.7)"
+            >
                 <Heading
-                    display="inline-block"
                     as="h2"
                     size="2xl"
                     fontWeight="bold"
                     color="white"
-                    position="absolute"
-                    top="50%"
-                    left="50%"
-                    transform="translate(-50%, -50%)"
+                    textAlign="center"
                 >
                     Video is {length} seconds long. You sure you want to watch it?
                 </Heading>
@@ -39,15 +48,17 @@ export function videoOverlay() {
         console.log('videoOverlay');
         const appContainer = document.createElement("div");
         appContainer.id = "habitlab-video-overlay";
+        appContainer.style.position = "absolute";
+        appContainer.style.top = `${video.offsetTop}px`;
+        appContainer.style.left = `${video.offsetLeft}px`;
+        appContainer.style.width = `${video.offsetWidth}px`;
+        appContainer.style.height = `${video.offsetHeight}px`;
         appContainer.style.zIndex = "99999";
         ReactDOM.render(
             <VideoOverlay length={formatTime(length)} />,
             appContainer
         );
-        once_available('ytd-watch-flexy #player-container-outer', () => {
-            const playerContainerOuter = document.getElementById('player-container-outer');
-            playerContainerOuter?.append(appContainer);
-        });
+        document.body.appendChild(appContainer);
     }
 }
 
@@ -60,3 +71,4 @@ export function playVideo() {
         appContainer?.remove();
     }
 }
+
