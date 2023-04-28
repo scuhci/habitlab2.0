@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { formatTime, once_available } from "../utils/frontend-utils";
-import { ChakraProvider, Heading, Box, Text, Button } from "@chakra-ui/react";
+import { ChakraProvider, Heading, Box, Text, Button, Spacer } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom";
 import { getFromStorage } from "../utils/useChromeStorage";
@@ -24,17 +24,37 @@ const VideoOverlay1: FunctionComponent<VideoOverlayProps> = ({ length }) => {
                 alignItems="center"
                 onClick={playVideo}
                 cursor="pointer"
-                bg="rgba(0, 0, 0, 0.7)"
+                bg="rgba(0, 0, 0, 0.9)"
             >
-                <Heading
-                    as="h2"
-                    size="2xl"
-                    fontWeight="bold"
-                    color="white"
-                    textAlign="center"
-                >
-                    Video is {length} seconds long. You sure you want to watch it?
-                </Heading>
+                <Box textAlign="center" py={10} px={6}>
+                    <Heading
+                        as="h1"
+                        size="4xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
+                        🙌
+                    </Heading>
+                    <Heading
+                        as="h2"
+                        size="2xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
+                        You have been great so far! Are you sure this video is worth your time?
+                    </Heading>
+                    <Heading
+                        as="h2"
+                        size="2xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
+                        I know you can spend {length} minutes doing something more productive!
+                    </Heading>
+                </Box>
             </Box>
         </ChakraProvider>
     );
@@ -55,7 +75,7 @@ const VideoOverlay2: FunctionComponent<VideoOverlayProps> = ({ length }) => {
                 alignItems="center"
                 onClick={playVideo}
                 cursor="pointer"
-                bg="rgba(0, 0, 0, 0.7)"
+                bg="rgba(0, 0, 0, 0.9)"
             >
                 <Box textAlign="center" py={10} px={6}>
                     <Heading
@@ -64,23 +84,71 @@ const VideoOverlay2: FunctionComponent<VideoOverlayProps> = ({ length }) => {
                         size="2xl"
                         bgGradient="linear(to-r, teal.200, teal.300)"
                         backgroundClip="text">
-                        404
+                        Error: 404
                     </Heading>
-                    <Text fontSize="30px" mt={3} mb={2} color={'white'}>
+                    <Heading
+                        as="h2"
+                        size="2xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
                         Productivity Not Found
-                    </Text>
-                    <Text color={'white'} mb={6} fontSize="25px">
-                        Yo Meatbag, you're sure you wanna waste {length} of your life?
-                    </Text>
+                    </Heading>
+                    <Heading
+                        as="h2"
+                        size="2xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
+                        This video is definitely worth your time! 🙄
+                    </Heading>
+                </Box>
+            </Box>
+        </ChakraProvider >
+    );
+};
 
-                    <Button
-                        colorScheme="teal"
-                        bgGradient="linear(to-r, teal.200, teal.300, teal.400)"
-                        color="gray.900"
-                        variant="solid"
-                        onClick={playVideo}>
-                        Play Video
-                    </Button>
+const VideoOverlay3: FunctionComponent<VideoOverlayProps> = ({ length }) => {
+    return (
+        <ChakraProvider>
+            <Box
+                position="fixed"
+                top={0}
+                left={0}
+                right={0}
+                bottom={0}
+                zIndex="99999"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                onClick={playVideo}
+                cursor="pointer"
+                bg="rgba(0, 0, 0, 0.9)"
+            >
+                <Box textAlign="center" py={10} px={6}>
+                    <Text fontSize="50px">
+                        🤡
+                    </Text>
+                    <Heading
+                        as="h2"
+                        size="2xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
+                        Do you really need to spend {length} f---ing minutes watching this?
+                    </Heading>
+                    <Heading
+                        as="h2"
+                        size="2xl"
+                        fontWeight="bold"
+                        color="white"
+                        textAlign="center"
+                    >
+                        Get oustide and do something productive you meatbag!
+                    </Heading>
                 </Box>
             </Box>
         </ChakraProvider>
@@ -88,19 +156,19 @@ const VideoOverlay2: FunctionComponent<VideoOverlayProps> = ({ length }) => {
 };
 
 export async function videoOverlay() {
-    var video = document.querySelector('video');
-    if (video) {
+    once_available('.html5-video-player video:not(#rewardvideo)', async () => {
+        if (document.getElementById("habitlab-video-overlay")) {
+            return;
+        }
+        var video = document.querySelector('.html5-video-player video:not(#rewardvideo)') as HTMLVideoElement;
+        video.pause();
         video.style.opacity = '0.4';
         video.pause();
         const length = video.duration;
-        console.log('videoOverlay');
+        console.log('length: ', length);
         const appContainer = document.createElement("div");
         appContainer.id = "habitlab-video-overlay";
         appContainer.style.position = "absolute";
-        appContainer.style.top = `${video.offsetTop}px`;
-        appContainer.style.left = `${video.offsetLeft}px`;
-        appContainer.style.width = `${video.offsetWidth}px`;
-        appContainer.style.height = `${video.offsetHeight}px`;
         appContainer.style.zIndex = "99999";
         const rhetoricChoice = await getFromStorage('rhetoric-choice');
         if (rhetoricChoice == 1) {
@@ -115,8 +183,14 @@ export async function videoOverlay() {
                 appContainer
             );
         }
+        else {
+            ReactDOM.render(
+                <VideoOverlay3 length={formatTime(length)} />,
+                appContainer
+            );
+        }
         document.body.appendChild(appContainer);
-    }
+    });
 }
 
 export function playVideo() {

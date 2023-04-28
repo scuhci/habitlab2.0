@@ -22,7 +22,6 @@ async function init() {
     var url = window.location.href;
     if (window.location.href.includes("watch")) {
         videoOverlay();
-        console.log("video overlay added");
     }
     //update url every 1 second and check if it cointains 'watch'
     setInterval(function () {
@@ -30,7 +29,6 @@ async function init() {
             url = window.location.href;
             if (window.location.href.includes("watch")) {
                 videoOverlay();
-                console.log("video overlay added");
             }
         }
     }, 1000);
