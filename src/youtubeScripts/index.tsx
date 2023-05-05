@@ -15,10 +15,13 @@ async function init() {
     if (!window.location.href.includes("watch")) {
         hideFeed();
         console.log("feed hidden");
+    } else {
+        hideComments();
+        console.log("comments hidden");
+        videoOverlay();
+        console.log("video overlay");
     }
-    hideComments();
-    console.log("comments hidden");
-    videoOverlay();
+
 }
 
 init();

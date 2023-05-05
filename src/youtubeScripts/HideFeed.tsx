@@ -21,11 +21,9 @@ export function hideFeed() {
     once_available('ytd-browse[role="main"][page-subtype="home"] #contents', () => {
         contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
         if (contentsDiv) {
-            console.log('contentsDiv found');
             contentsDiv.style.display = 'none';
         }
         else {
-            console.log('contentsDiv not found');
             return;
         }
     }

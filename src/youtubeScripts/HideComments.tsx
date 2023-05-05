@@ -9,7 +9,6 @@ function enableComments() {
         commentsDiv.style.display = 'block';
     }
     else {
-        console.log('commentsDiv not found');
     }
 
     const primaryDiv = document.getElementById('primary-inner');
@@ -18,6 +17,9 @@ function enableComments() {
 }
 
 export function hideComments() {
+    if (document.getElementById('habitlab-hide-comments')) {
+        return;
+    }
     const appContainer = document.createElement("div");
     appContainer.id = "habitlab-hide-comments";
 
@@ -33,11 +35,9 @@ export function hideComments() {
     once_available('#comments', () => {
         commentsDiv = document.getElementById('comments');
         if (commentsDiv) {
-            console.log('commentsDiv found');
             commentsDiv.style.display = 'none';
         }
         else {
-            console.log('commentsDiv not found');
         }
     });
     once_available('#primary-inner', () => {

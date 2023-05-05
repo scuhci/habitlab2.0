@@ -43,12 +43,12 @@ export function videoOverlay() {
     if (document.getElementById("habitlab-video-overlay")) {
         return;
     }
-    var video = document.querySelector('video');
-    if (video) {
+    once_available('video', () => {
+        console.log('video found');
+        const video = document.querySelector('video') as HTMLVideoElement;
         video.style.opacity = '0.4';
         video.pause();
         const length = video.duration;
-        console.log('videoOverlay');
         const appContainer = document.createElement("div");
         appContainer.id = "habitlab-video-overlay";
         appContainer.style.position = "absolute";
@@ -62,7 +62,7 @@ export function videoOverlay() {
             appContainer
         );
         document.body.appendChild(appContainer);
-    }
+    });
 }
 
 export function playVideo() {
