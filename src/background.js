@@ -1,6 +1,8 @@
 // function that injects code to a specific tab
-function injectScript(tabId) {
-
+function injectScript(tabId, url) {
+    if (!url.contains("youtube.com")) {
+        return;
+    }
     chrome.scripting.executeScript(
         {
             target: { tabId: tabId },
@@ -18,7 +20,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (changeInfo.url) {
 
         // calls the inject function
-        injectScript(tabId);
+        injectScript(tabId, changeInfo.url);
 
     }
 });
