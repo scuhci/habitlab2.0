@@ -13,6 +13,7 @@ module.exports = {
         popup: path.resolve("src/popup/index.tsx"),
         options: path.resolve("src/options/index.tsx"),
         youtubeScripts: path.resolve("src/youtubeScripts/index.tsx"),
+        background: path.resolve("src/background.js"),
     },
     module: {
         rules: [

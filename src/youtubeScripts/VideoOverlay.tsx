@@ -40,6 +40,9 @@ const VideoOverlay: FunctionComponent<VideoOverlayProps> = ({ length }) => {
 };
 
 export function videoOverlay() {
+    if (document.getElementById("habitlab-video-overlay")) {
+        return;
+    }
     var video = document.querySelector('video');
     if (video) {
         video.style.opacity = '0.4';
