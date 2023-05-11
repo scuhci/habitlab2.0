@@ -18,6 +18,7 @@ function enableFeed() {
 }
 
 export function hideFeed() {
+    var contentsDiv: HTMLElement;
     once_available('ytd-browse[role="main"][page-subtype="home"] #contents', () => {
         contentsDiv = document.querySelector('ytd-browse[role="main"][page-subtype="home"] #contents') as HTMLElement;
         if (contentsDiv) {
@@ -38,7 +39,6 @@ export function hideFeed() {
 
     ReactDOM.render(<HideFeed />, appContainer);
 
-    var contentsDiv;
     once_available('#primary', () => {
         const primaryDiv = document.getElementById('primary');
         primaryDiv.append(appContainer);

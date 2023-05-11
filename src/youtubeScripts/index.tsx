@@ -11,11 +11,12 @@ async function init() {
     if (!interventionsEnabled) {
         return;
     }
-    if (!window.location.href.includes("watch")) {
+    var rx = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+    if (!window.location.href.match(rx)) {
         hideFeed();
     } else {
         hideComments();
-        videoOverlay();
+        //videoOverlay();
     }
 
 }
