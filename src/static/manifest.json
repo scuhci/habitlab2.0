@@ -15,7 +15,7 @@
 	"options_page": "options.html",
 	"content_scripts": [
 		{
-			"matches": ["*://www.youtube.com/*"],
+			"matches": ["*://wwww.youtube.com/*"],
 			"js": ["youtubeScripts.js"],
 			"persistant" : true
 		}

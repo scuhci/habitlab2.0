@@ -11,15 +11,11 @@ async function init() {
     if (!interventionsEnabled) {
         return;
     }
-    console.log("interventions enabled");
     if (!window.location.href.includes("watch")) {
         hideFeed();
-        console.log("feed hidden");
     } else {
         hideComments();
-        console.log("comments hidden");
         videoOverlay();
-        console.log("video overlay");
     }
 
 }

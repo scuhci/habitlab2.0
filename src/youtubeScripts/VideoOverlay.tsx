@@ -43,11 +43,13 @@ export function videoOverlay() {
     if (document.getElementById("habitlab-video-overlay")) {
         return;
     }
-    once_available('video', () => {
-        console.log('video found');
-        const video = document.querySelector('video') as HTMLVideoElement;
-        video.style.opacity = '0.4';
+    once_available('.video-stream.html5-main-video', () => {
+        console.log('main video found!');
+
+        const video = document.querySelector('.video-stream.html5-main-video') as HTMLVideoElement;
         video.pause();
+
+        //Insert overlay
         const length = video.duration;
         const appContainer = document.createElement("div");
         appContainer.id = "habitlab-video-overlay";
