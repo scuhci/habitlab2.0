@@ -1,3 +1,5 @@
+#### This project is no longer active. This Reposiroty will be kept as a reference to building chrome extensions uisng Raect.
+
 ## Habitlab 2.0
 
 ### Development
